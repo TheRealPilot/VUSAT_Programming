@@ -53,14 +53,10 @@ class Altimeter:
         pres = ((data[1] * 65536) + (data[2] * 256) + (data[3] & 0xF0)) / 16
         pressure = (pres / 4.0) / 1000.0
 
-        pres = open("pressure.txt", "w")
-        alt = open("altitude.txt", "w")
-        temp = open("temperature.txt", "w")
-
         # Output data to file
         pres = open("pressure.txt", "a")
-        alt.write("Pressure : %.2f kPa" % pressure)
-        alt.close()
+        pres.write("Pressure : %.2f kPa" % pressure)
+        pres.close()
 
         alt = open("altitude.txt", "a")
         alt.write("Altitude : %.2f m" % altitude)
@@ -97,7 +93,7 @@ def main() -> int:
         if (time.time()%60 == 0):
             alt.run()
     with PiCamera() as camera:
-        camera.resolution=(1920,1080)
+        camera.resolution=(1920, 1080)
         camera.start_preview()
         camera.capture('test1.jpeg', format='jpeg')
         camera.stop_preview()
