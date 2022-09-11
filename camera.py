@@ -88,7 +88,7 @@ from picamera import PiCamera
 from time import sleep
 import time
 import smbus
-x = 1
+
 def main() -> int:
 
     start = time.time()
