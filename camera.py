@@ -89,14 +89,15 @@ def main() -> int:
 
     start = time.time()
     alt = Altimeter()
+
     while (alt.getAlt() > 0):
-        if (time.time()%60 == 0):
-            alt.run()
-    with PiCamera() as camera:
-        camera.resolution=(1920, 1080)
-        camera.start_preview()
-        camera.capture('test1.jpeg', format='jpeg')
-        camera.stop_preview()
+        alt.run()
+        with PiCamera() as camera:
+            camera.resolution=(1920, 1080)
+            camera.start_preview()
+            camera.capture('pic{counter:03d}-{timestamp:%H-%M-%S-%f}.jpeg', format='jpeg')
+            camera.stop_preview()
+        time.sleep(60)             # sets capture interval to 1 minute
     return 0
 
 if __name__ == '__main__':
