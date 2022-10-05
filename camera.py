@@ -18,15 +18,15 @@ class Altimeter:
             # MPL3115A2 address, 0x60(96)
             # Select control register, 0x26(38)
             #		0xB9(185)	Active mode, OSR = 128, Altimeter mode
-            bus.write_byte_data(0x60, 0x26, 0xB9)
+            bus.write_byte_data(0x60, 0x26, 0xB9,True)
             # MPL3115A2 address, 0x60(96)
             # Select data configuration register, 0x13(19)
             #		0x07(07)	Data ready event enabled for altitude, pressure, temperature
-            bus.write_byte_data(0x60, 0x13, 0x07)
+            bus.write_byte_data(0x60, 0x13, 0x07,True)
             # MPL3115A2 address, 0x60(96)
             # Select control register, 0x26(38)
             #		0xB9(185)	Active mode, OSR = 128, Altimeter mode
-            bus.write_byte_data(0x60, 0x26, 0xB9)
+            bus.write_byte_data(0x60, 0x26, 0xB9,True)
 
             time.sleep(1)
 
@@ -80,17 +80,17 @@ class Altimeter:
 
 def main() -> int:
 
-    start = time.time()
+    # start = time.time()
     alt = Altimeter()
 
-    while start.time() > 120:
-        alt.run()
-        with PiCamera() as camera:
-            camera.resolution=(1920, 1080)
-            camera.start_preview()
-            camera.capture('pic{counter:03d}-{timestamp:%H-%M-%S-%f}.jpeg', format='jpeg')
-            camera.stop_preview()
-        time.sleep(60)             # sets capture interval to 1 minute
+    time.sleep(5)
+    alt.run()
+    with PiCamera() as camera:
+        camera.resolution=(1920, 1080)
+        camera.start_preview()
+        camera.capture('pic{counter:03d}-{timestamp:%H-%M-%S-%f}.jpeg', format='jpeg')
+        camera.stop_preview()
+    time.sleep(60)             # sets capture interval to 1 minute
     return 0
 
 if __name__ == '__main__':
