@@ -116,7 +116,7 @@ def run_imu(data_dict:dict):
 
 def main() -> int:
     duration = int(sys.argv[1])
-    with open('balloon_stats.csv', 'w', newline='') as csv_file:
+    with open('balloon_stats.csv', 'w', newline='',buffering = 1) as csv_file:
         csv_writer = csv.DictWriter(csv_file, fieldnames=HEADERS)
         csv_writer.writeheader()
         for i in range(duration):
