@@ -119,7 +119,7 @@ def main() -> int:
     duration = int(sys.argv[1])
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y_%H:%M:%S")
-    with open(f'balloon_stats{dt_string}.csv', 'w', newline='', buffering=1) as csv_file:
+    with open(f'balloon_stats_{dt_string}.csv', 'w', newline='', buffering=1) as csv_file:
         csv_writer = csv.DictWriter(csv_file, fieldnames=HEADERS)
         csv_writer.writeheader()
         for i in range(duration):
