@@ -6,6 +6,7 @@ import FaBo9Axis_MPU9250
 import sys
 import csv
 import os
+from datetime import datetime
 
 """CSV Specification
 humidity: relative humidity measured as a percentage
@@ -116,7 +117,9 @@ def run_imu(data_dict:dict):
 
 def main() -> int:
     duration = int(sys.argv[1])
-    with open('balloon_stats.csv', 'w', newline='') as csv_file:
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y_%H:%M:%S")
+    with open(f'balloon_stats{dt_string}.csv', 'w', newline='', buffering=1) as csv_file:
         csv_writer = csv.DictWriter(csv_file, fieldnames=HEADERS)
         csv_writer.writeheader()
         for i in range(duration):
