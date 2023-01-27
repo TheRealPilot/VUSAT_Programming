@@ -158,7 +158,8 @@ def main() -> int:
                 camera.start_preview()
                 camera.capture(f'/home/pi/pictures/picture{i}.jpeg', format='jpeg')
                 camera.stop_preview()
-            time.sleep(6.5)       # sets capture interval to 1 minute
+            run_LED()
+            #time.sleep(6.5)       # sets capture interval to 1 minute
     return 0
 
 if __name__ == '__main__':
