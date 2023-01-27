@@ -123,7 +123,22 @@ def run_imu(data_dict:dict):
             data_dict['mag_x'] = str(mag['x'])
             data_dict['mag_y'] = str(mag['y'])
             data_dict['mag_z'] = str(mag['z'])
-
+            
+            
+#Function to control LED light sensors, blinking the LED light once
+def run_LED():
+    #configures the LED GPIO
+    GPIO.setmode(GPIO.board)
+    GPIO.setwarnings(False)
+    GPIO.setup(18, GPIO.OUT)
+    #turns the LED light on for 3.25 seconds, then off for 3.25 seconds
+    GPIO.output(18, True)
+    time.sleep(3.25)
+    GPIO.output(18, False)
+    time.sleep(3.25)    
+    GPIO.cleanup()
+    
+    
 def main() -> int:
     duration = int(sys.argv[1])
     now = datetime.now()
