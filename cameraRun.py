@@ -127,7 +127,34 @@ def run_LED():
     GPIO.output(18, False)
     time.sleep(3.25)    
     GPIO.cleanup()
+ 
+def sampleSensors(data):
+    try:
+        run_altimeter(data)
+    except Exception as err:
+        print("altimeter sensor error: {err}")
+        
+    try:
+        run_humidity(data)
+    except Exception as err:
+        print("humidity sensor error: {err}")
     
+    try:    
+        run_imu(data)
+    except Exception as err: 
+        print("imu sensor error: {err}")
+        
+    csv_writer.writerow(data)
+    
+    try:
+        with PiCamera() as camera:
+            camera.resolution=(1920, 1080)
+            camera.start_preview()
+            camera.capture(f'/home/pi/pictures/picture{i}.jpeg', format='jpeg')
+            camera.stop_preview() 
+    except Exception as err:
+        print("camera error: {err}")
+       
 def main() -> int:
     duration = int(sys.argv[1])
     now = datetime.now()
@@ -138,15 +165,7 @@ def main() -> int:
         for i in range(duration):
             data = defaultdict(str)
             data['time']  = time.strftime("%H:%M:%S")
-            run_altimeter(data)
-            run_humidity(data)
-            run_imu(data)
-            csv_writer.writerow(data)
-            with PiCamera() as camera:
-                camera.resolution=(1920, 1080)
-                camera.start_preview()
-                camera.capture(f'/home/pi/pictures/picture{i}.jpeg', format='jpeg')
-                camera.stop_preview()
+            sampleSensors(data)
             run_LED()
             time.sleep(6.5)       # sets capture interval to 1 minute
     return 0
