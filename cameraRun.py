@@ -128,7 +128,7 @@ def run_LED():
     time.sleep(3.25)    
     GPIO.cleanup()
  
-def sampleSensors(data):
+def sampleSensors(data, csv_writer):
     try:
         run_altimeter(data)
     except Exception as err:
@@ -165,7 +165,7 @@ def main() -> int:
         for i in range(duration):
             data = defaultdict(str)
             data['time']  = time.strftime("%H:%M:%S")
-            sampleSensors(data)
+            sampleSensors(data, csv_writer)
             run_LED()
             time.sleep(6.5)       # sets capture interval to 1 minute
     return 0
