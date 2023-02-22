@@ -7,6 +7,7 @@ import sys
 import csv
 import os
 from datetime import datetime
+import RPi.GPIO as GPIO
 
 """CSV Specification
 humidity: relative humidity measured as a percentage
