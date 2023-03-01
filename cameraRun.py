@@ -121,11 +121,12 @@ def run_LED():
     #configures the LED GPIO
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
-    GPIO.setup(18, GPIO.OUT)
+    GPIO.setup(4, GPIO.OUT)
     #turns the LED light on for 3.25 seconds, then off for 3.25 seconds
-    GPIO.output(18, GPIO.HIGH)
+    GPIO.output(4, GPIO.HIGH )
+    print("LED ON")
     time.sleep(3.25)
-    GPIO.output(18, GPIO.LOW)
+    GPIO.output(4, GPIO.LOW)
     time.sleep(3.25)    
     GPIO.cleanup()
  
@@ -133,17 +134,17 @@ def sampleSensors(data, csv_writer):
     try:
         run_altimeter(data)
     except Exception as err:
-        print("altimeter sensor error: {err}")
+        print("altimeter sensor error: ", err)
         
     try:
         run_humidity(data)
     except Exception as err:
-        print("humidity sensor error: {err}")
+        print("humidity sensor error: ", err)
     
     try:    
         run_imu(data)
     except Exception as err: 
-        print("imu sensor error: {err}")
+        print("imu sensor error: ", err)
         
     csv_writer.writerow(data)
     
@@ -154,7 +155,7 @@ def sampleSensors(data, csv_writer):
             camera.capture(f'/home/pi/pictures/picture{i}.jpeg', format='jpeg')
             camera.stop_preview() 
     except Exception as err:
-        print("camera error: {err}")
+        print("camera error: ", err)
        
 def main() -> int:
     duration = int(sys.argv[1])
