@@ -119,13 +119,13 @@ def run_imu(data_dict:dict):
 #Function to control LED light sensors, blinking the LED light once
 def run_LED():
     #configures the LED GPIO
-    GPIO.setmode(GPIO.board)
+    GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
     GPIO.setup(18, GPIO.OUT)
     #turns the LED light on for 3.25 seconds, then off for 3.25 seconds
-    GPIO.output(18, True)
+    GPIO.output(18, GPIO.HIGH)
     time.sleep(3.25)
-    GPIO.output(18, False)
+    GPIO.output(18, GPIO.LOW)
     time.sleep(3.25)    
     GPIO.cleanup()
  
